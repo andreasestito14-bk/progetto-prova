@@ -3,4 +3,7 @@ project(Prg_1)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(Prg_1 main.cpp)
+add_executable(Prg_1 main.cpp
+        Subject.h
+        Observer.h
+        Model.h)
