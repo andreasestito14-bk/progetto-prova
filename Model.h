@@ -12,21 +12,35 @@ class Model : public Subject {
 
 public:
 
-    virtual void addObserver(std::weak_ptr<Observer> obs) override{
+    virtual void addObserver(std::shared_ptr<Observer> obs) override{
         obsList.push_back(obs);
     }
 
-    virtual void rmvObserver(std::weak_ptr<Observer> obs) override{
-        std::shared_ptr<Observer> sp_1 = obs.lock();
-
+    virtual void rmvObserver(std::shared_ptr<Observer> obs) override{
         for(std::list<std::weak_ptr<Observer>>::iterator itr = obsList.begin(); itr != obsList.end(); ++itr){
             std::shared_ptr<Observer> sp_2 = itr->lock();
-            if( !sp_2 or sp_2 == sp_1 ){
+
+            //controllo se è scaduto oppure se corrisponde al puntatore che sto cercando
+            if( !sp_2 or sp_2 == obs ){
                 itr = obsList.erase(itr);
             }
         }
     }
 
+    virtual void notify() override {
+
+        for(std::list<std::weak_ptr<Observer>>::iterator itr= obsList.begin(); itr!= obsList.end(); ++itr){
+            std::shared_ptr<Observer> sp = itr->lock();
+
+            if(sp){
+                sp->update();
+            }
+            else
+                //elimino weak pointer scaduti
+                itr = obsList.erase(itr);
+        }
+
+    }
 
 
 private:

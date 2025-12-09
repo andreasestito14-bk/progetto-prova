@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 26)
 add_executable(Prg_1 main.cpp
         Subject.h
         Observer.h
-        Model.h)
+        Model.h
+        View.h
+        Controller.h)
