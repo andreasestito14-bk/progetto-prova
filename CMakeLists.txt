@@ -16,6 +16,8 @@ add_executable(Prg_1 main.cpp
         Model.h
         View.h
         Controller.h
-        "${wxWidgets_ROOT_DIR}/include/wx/msw/wx.rc")
+        View.cpp
+        "${wxWidgets_ROOT_DIR}/include/wx/msw/wx.rc"
+        )
 
 target_link_libraries(Prg_1 ${wxWidgets_LIBRARIES})

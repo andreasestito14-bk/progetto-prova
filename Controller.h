@@ -13,8 +13,16 @@ public:
 
     explicit Controller( std::shared_ptr<Model> md): model (md){}
 
-    //TODO: azioni del modello...
-
+    void increment(){
+        int value = model->getCounter();
+        value ++;
+        model->setCounter(value);
+    }
+    void decrement(){
+        int value = model->getCounter();
+        value --;
+        model->setCounter(value);;
+    }
 
 
 private:

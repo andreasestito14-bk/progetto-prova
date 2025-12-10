@@ -9,44 +9,34 @@
 #include "Model.h"
 #include <memory>
 #include "Controller.h"
+#include <wx/wx.h>
 
-class View : public Observer , public std::enable_shared_from_this<View>{
+class View : public Observer ,public wxFrame , public std::enable_shared_from_this<View>{
 
 public:
 
-    View(std::shared_ptr<Model> md, std::shared_ptr<Controller> ctr): model(md), controller(ctr){}
+    View(std::shared_ptr<Model> md, std::shared_ptr<Controller> ctr,  wxWindow* parent=NULL, wxWindowID id =wxID_ANY,
+    const wxString& title = "Schermata di caricamento file", const wxPoint& pos =wxDefaultPosition,
+    const wxSize& size = wxSize( 500,300 ), long style =wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-    void init(){
-        auto sp= model.lock();
-        if(sp)
-            sp->addObserver(shared_from_this());
-    }
+    void init();
 
-    void unregister(){
-        auto sp = model.lock();
-        if (sp)
-            sp->rmvObserver(shared_from_this());
-    }
+    void incrementButton(wxCommandEvent& evt);
+    void decrementButton(wxCommandEvent& evt);
 
-    //TODO: funzione aggiornamento display
+    void unregister();
 
-    virtual void update() override{
-        //TODO: aggiornamento del display...
-    }
+    virtual void update(int c) override;
 
-    //TODO: azioni di aggiornamento display...
-
-
-    virtual ~View() {
-        auto sp = model.lock();
-        if (sp)
-            sp->rmvObserver(shared_from_this());
-    }
+    virtual ~View();
 
 private:
-
     std::weak_ptr<Model> model;
     std::shared_ptr<Controller> controller;
+
+    wxStaticText* testo;
+    wxButton* btn1;
+    wxButton* btn2;
 
 
 };
