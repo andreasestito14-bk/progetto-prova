@@ -9,6 +9,7 @@
 #include "Model.h"
 #include <memory>
 #include "Controller.h"
+#include "Loader.h"
 #include <wx/wx.h>
 
 class View : public Observer ,public wxFrame , public std::enable_shared_from_this<View>{
@@ -20,16 +21,12 @@ public:
     const wxSize& size = wxSize( 500,300 ), long style =wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     void init();
-
-    void incrementButton(wxCommandEvent& evt);
-    void decrementButton(wxCommandEvent& evt);
-    void loadingButton(wxCommandEvent& evt);
-    void onTimer(wxTimerEvent& evt);
-
-
     void unregister();
 
-    virtual void update(int c) override;
+    void ChooseFiles(wxCommandEvent&);
+
+
+    virtual void update(int prg, std::string path) override;
 
     virtual ~View();
 
@@ -37,14 +34,11 @@ private:
     Model* model;
     Controller* controller;
 
-    wxStaticText* testo;
-    wxButton* btn1;
-    wxButton* btn2;
+    wxStaticText* currentFile;
+    wxStaticText* percentage;
     wxGauge* gauge;
-    wxButton* loadButton;
-    wxTimer* timer;
-    int progress;
-
+    wxButton* chooseButton;
+    Loader* loader;
 };
 
 

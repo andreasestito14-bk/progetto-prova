@@ -18,6 +18,8 @@ add_executable(Prg_1 main.cpp
         Controller.h
         View.cpp
         "${wxWidgets_ROOT_DIR}/include/wx/msw/wx.rc"
-        )
+        Loader.h
+        Loader.cpp
+)
 
 target_link_libraries(Prg_1 ${wxWidgets_LIBRARIES})

@@ -8,25 +8,25 @@
 #include <memory>
 #include "Model.h"
 
+
+
+
 class Controller{
 public:
 
     explicit Controller( Model* md): model (md){}
 
-    void increment(){
-        int value = model->getCounter();
-        value ++;
-        model->setCounter(value);
+    void openingError(int percentage, std::string path){
+        model->setProgress(percentage, path);
     }
-    void decrement(){
-        int value = model->getCounter();
-        value --;
-        model->setCounter(value);;
+    void updatePercentage(int percentage, std::string path){
+        model->setProgress(percentage,path);
     }
 
 
 private:
     Model* model;
+
 
 };
 

@@ -10,7 +10,7 @@
 class Observer {
 
 public:
-    virtual void update(int c) = 0;
+    virtual void update(int prg, std::string path) = 0;
 
     virtual ~Observer(){}
 };

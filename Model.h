@@ -27,13 +27,13 @@ public:
         }
     }
 
-    virtual void notify(int c) override {
+    virtual void notify(int prg, std::string path) override {
 
         for(std::list<std::weak_ptr<Observer>>::iterator itr= obsList.begin(); itr!= obsList.end(); ++itr){
             std::shared_ptr<Observer> sp = itr->lock();
 
             if(sp){
-                sp->update(c);
+                sp->update(prg, path);
             }
             else
                 //elimino weak pointer scaduti
@@ -42,16 +42,16 @@ public:
 
     }
 
-    int getCounter(){
-        return counter;
+    int getProgress(){
+        return progress;
     }
-    void setCounter(int c){
-        counter = c;
-        notify(c);
+    void setProgress(int prg, std::string path){
+        progress = prg;
+        notify(prg, path);
     }
 
 private:
-    int counter = 0;
+    int progress;
     std::list<std::weak_ptr<Observer>> obsList;
 
 
