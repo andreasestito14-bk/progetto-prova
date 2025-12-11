@@ -11,7 +11,7 @@
 class Controller{
 public:
 
-    explicit Controller( std::shared_ptr<Model> md): model (md){}
+    explicit Controller( Model* md): model (md){}
 
     void increment(){
         int value = model->getCounter();
@@ -26,7 +26,7 @@ public:
 
 
 private:
-    std::shared_ptr<Model> model;
+    Model* model;
 
 };
 

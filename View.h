@@ -15,7 +15,7 @@ class View : public Observer ,public wxFrame , public std::enable_shared_from_th
 
 public:
 
-    View(std::shared_ptr<Model> md, std::shared_ptr<Controller> ctr,  wxWindow* parent=NULL, wxWindowID id =wxID_ANY,
+    View(Model* md, Controller* ctr,  wxWindow* parent=NULL, wxWindowID id =wxID_ANY,
     const wxString& title = "Schermata di caricamento file", const wxPoint& pos =wxDefaultPosition,
     const wxSize& size = wxSize( 500,300 ), long style =wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
@@ -31,13 +31,12 @@ public:
     virtual ~View();
 
 private:
-    std::weak_ptr<Model> model;
-    std::shared_ptr<Controller> controller;
+    Model* model;
+    Controller* controller;
 
     wxStaticText* testo;
     wxButton* btn1;
     wxButton* btn2;
-
 
 };
 

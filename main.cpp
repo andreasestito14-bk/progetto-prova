@@ -21,13 +21,12 @@ public:
  */
 class MyApp : public wxApp{
 public:
-    std::shared_ptr<Model> model;
-    std::shared_ptr<Controller> controller;
+
     std::shared_ptr<View> view;
 
     virtual bool OnInit() override{
-            model = std::make_shared<Model>();
-            controller = std::make_shared<Controller>(model);
+            Model* model = new Model();
+            Controller* controller = new Controller(model);
 
             view = std::make_shared<View>(model, controller);
             view->init();
