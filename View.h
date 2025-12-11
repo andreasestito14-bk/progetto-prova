@@ -23,6 +23,9 @@ public:
 
     void incrementButton(wxCommandEvent& evt);
     void decrementButton(wxCommandEvent& evt);
+    void loadingButton(wxCommandEvent& evt);
+    void onTimer(wxTimerEvent& evt);
+
 
     void unregister();
 
@@ -37,6 +40,10 @@ private:
     wxStaticText* testo;
     wxButton* btn1;
     wxButton* btn2;
+    wxGauge* gauge;
+    wxButton* loadButton;
+    wxTimer* timer;
+    int progress;
 
 };
 

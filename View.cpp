@@ -16,32 +16,55 @@ const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxF
     testo = new wxStaticText(panel, wxID_ANY, wxEmptyString);
     btn1 = new wxButton(panel, wxID_ANY, "Aumenta");
     btn2 = new wxButton(panel, wxID_ANY, "Diminuisci");
+    gauge = new wxGauge(panel, wxID_ANY, 100, wxDefaultPosition, wxSize(300,25));
+    loadButton = new wxButton(panel, wxID_ANY, "Carica");
 
 
 
     //sizer per il layout
     wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
     vbox->Add(testo, 0, wxALL | wxALIGN_CENTER_HORIZONTAL);
-        vbox->Add(btn1, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
-        vbox->Add(btn2, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
+    vbox->Add(btn1, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
+    vbox->Add(btn2, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
+    vbox->Add(loadButton, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
+    vbox->Add(gauge, 0 ,wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
     panel->SetSizer(vbox);
 
     //barra di stato
     CreateStatusBar();
     SetStatusText("Benvenuto!");
 
+    //timer (simulazione caricamento)
+    timer = new wxTimer(this);
+
     //collego l'evento al controllo
     btn1->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::incrementButton), NULL, this);
     btn2->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::decrementButton), NULL, this);
+    loadButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::loadingButton), NULL, this);
+    Bind(wxEVT_TIMER, &View::onTimer, this);
 }
 
 //azioni degli eventi
 void View::incrementButton(wxCommandEvent& evt){
     controller->increment();
 }
-
 void View::decrementButton(wxCommandEvent& evt){
     controller->decrement();
+}
+void View::loadingButton(wxCommandEvent& evt){
+    progress = 0;
+    gauge->SetValue(0);
+    timer->Start(50);
+}
+
+void View::onTimer(wxTimerEvent& evt){
+    if(progress < 100){
+        progress++;
+        gauge->SetValue(progress);
+    } else{
+        timer->Stop();
+        wxMessageBox("Caricamento completato");
+    }
 }
 
 
