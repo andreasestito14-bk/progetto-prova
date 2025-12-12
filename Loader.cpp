@@ -34,7 +34,7 @@ wxThread::ExitCode Loader::Entry(){
             const size_t CHUNK = 4096;
             char buffer[CHUNK];
 
-            while (!TestDestroy() && (file.read(buffer, CHUNK) || file.gcount() > 0))
+            while (!TestDestroy() and (file.read(buffer, CHUNK) or file.gcount() > 0))
             {
                 processed += file.gcount();
 
