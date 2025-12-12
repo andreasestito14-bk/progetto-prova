@@ -41,6 +41,8 @@ wxThread::ExitCode Loader::Entry(){
                 int progress = (processed *100) / fileSize;
                 controller->updatePercentage(progress,path);
 
+                wxMilliSleep(10);
+
             }
         }
 

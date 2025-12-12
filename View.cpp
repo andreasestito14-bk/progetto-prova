@@ -74,7 +74,7 @@ void View::update(int prg, std::string path) {
     }
     else if(prg >-1 and prg <100){
         currentFile->SetLabel("Caricando: " + path);
-        wxString wxIntString = wxString::Format("i%",prg);
+        wxString wxIntString = wxString::Format("%i%%",prg);
         percentage->SetLabel(wxIntString);
         gauge->SetValue(prg);
     }else{
