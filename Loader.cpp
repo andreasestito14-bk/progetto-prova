@@ -8,7 +8,7 @@
 
 
 
-Loader::Loader(Controller* controller, std::vector<std::string>& files): controller(controller), files(files){}
+Loader::Loader(Controller* controller, std::vector<std::string> files): controller(controller), files(files), wxThread(wxTHREAD_DETACHED){}
 
 wxThread::ExitCode Loader::Entry(){
 

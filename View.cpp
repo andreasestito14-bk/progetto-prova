@@ -21,8 +21,10 @@ const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxF
 
     //sizer per il layout
     wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+    vbox->Add(currentFile, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
     vbox->Add(percentage, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
     vbox->Add(gauge, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
+    vbox->Add(chooseButton, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 10);
 
     panel->SetSizer(vbox);
 
@@ -49,8 +51,9 @@ void View::ChooseFiles(wxCommandEvent& evt ) {
             files.push_back(fls.ToStdString());
         }
 
-        new Loader(controller, files);
+        loader = new Loader(controller, files);
 
+        loader->Run();
     }
 }
 
@@ -69,15 +72,20 @@ void View::update(int prg, std::string path) {
     if(prg == -1){
         currentFile->SetLabel("Impossibile aprire: " + path);
     }
-    else if(prg != -1){
+    else if(prg >-1 and prg <100){
         currentFile->SetLabel("Caricando: " + path);
         wxString wxIntString = wxString::Format("i%",prg);
         percentage->SetLabel(wxIntString);
+        gauge->SetValue(prg);
     }else{
         percentage->SetLabel("Caricamento completato!");
+        gauge->SetValue(prg);
     }
 }
 
 View::~View(){
         model->rmvObserver(shared_from_this());
-    }
+        chooseButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::ChooseFiles), NULL, this);
+
+
+}

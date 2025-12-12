@@ -2,23 +2,7 @@
 #include <wx/wx.h>
 #include "View.h"
 #include <memory>
-/*
-class MyApp : public wxApp{
-public:
-    virtual bool OnInit() override{
-        std::shared_ptr<Model> md = std::make_shared<Model>();
-        std::shared_ptr<Controller> ctr = std::make_shared<Controller>(md);
 
-        std::shared_ptr<View> vw = std::make_shared<View>(md,ctr);
-        vw->init();
-
-        vw->Show(true);
-        return true;
-
-
-    }
-};
- */
 class MyApp : public wxApp{
 public:
 

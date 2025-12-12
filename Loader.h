@@ -13,8 +13,9 @@
 class Loader: public wxThread {
 
 public:
-    Loader(Controller* controller, std::vector<std::string>& files);
+    Loader(Controller* controller, std::vector<std::string> files);
 
+protected:
     virtual ExitCode Entry() override;
 
 private:
