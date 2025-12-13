@@ -8,25 +8,17 @@
 #include <memory>
 #include "Model.h"
 
-
-
-
 class Controller{
 public:
 
-    explicit Controller( Model* md): model (md){}
+    explicit Controller( Model* md);
 
-    void openingError(int percentage, std::string path){
-        model->setProgress(percentage, path);
-    }
-    void updatePercentage(int percentage, std::string path){
-        model->setProgress(percentage,path);
-    }
+    void openingError(int percentage, std::string path);
+    void updatePercentage(int percentage, std::string path);
 
 
 private:
     Model* model;
-
 
 };
 

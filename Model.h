@@ -11,50 +11,16 @@
 class Model : public Subject {
 
 public:
+    virtual void addObserver(std::shared_ptr<Observer> obs) override;
+    virtual void rmvObserver(std::shared_ptr<Observer> obs) override;
+    virtual void notify(int prg, std::string path) override;
 
-    virtual void addObserver(std::shared_ptr<Observer> obs) override{
-        obsList.push_back(obs);
-    }
-
-    virtual void rmvObserver(std::shared_ptr<Observer> obs) override{
-        for(std::list<std::weak_ptr<Observer>>::iterator itr = obsList.begin(); itr != obsList.end(); ++itr){
-            std::shared_ptr<Observer> sp_2 = itr->lock();
-
-            //controllo se è scaduto oppure se corrisponde al puntatore che sto cercando
-            if( !sp_2 or sp_2 == obs ){
-                itr = obsList.erase(itr);
-            }
-        }
-    }
-
-    virtual void notify(int prg, std::string path) override {
-
-        for(std::list<std::weak_ptr<Observer>>::iterator itr= obsList.begin(); itr!= obsList.end(); ++itr){
-            std::shared_ptr<Observer> sp = itr->lock();
-
-            if(sp){
-                sp->update(prg, path);
-            }
-            else
-                //elimino weak pointer scaduti
-                itr = obsList.erase(itr);
-        }
-
-    }
-
-    int getProgress(){
-        return progress;
-    }
-    void setProgress(int prg, std::string path){
-        progress = prg;
-        notify(prg, path);
-    }
+    int getProgress();
+    void setProgress(int prg, std::string path);
 
 private:
-    int progress;
+    int progress = 0;
     std::list<std::weak_ptr<Observer>> obsList;
-
-
 
 };
 

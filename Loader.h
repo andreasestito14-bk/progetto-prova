@@ -18,6 +18,7 @@ public:
 protected:
     virtual ExitCode Entry() override;
 
+
 private:
     Controller* controller;
     std::vector<std::string> files;

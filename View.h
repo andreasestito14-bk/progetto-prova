@@ -38,7 +38,7 @@ private:
     wxStaticText* percentage;
     wxGauge* gauge;
     wxButton* chooseButton;
-    Loader* loader;
+    Loader* loader = nullptr;
 };
 
 

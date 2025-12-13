@@ -84,16 +84,8 @@ void View::update(int prg, std::string path) {
 }
 
 View::~View(){
-        model->rmvObserver(shared_from_this());
         chooseButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::ChooseFiles), NULL, this);
 
-        //se il thread esiste
-        if(loader){
-
-            //aspetto che finisca
-            loader->Wait();
-
-            //adesso è sicuro cancellarlo
-            delete loader;
-        }
+        loader->Delete();
+        loader= nullptr;
 }
