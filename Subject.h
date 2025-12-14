@@ -12,10 +12,11 @@ class Subject {
 
 public:
 
-    virtual void addObserver(std::shared_ptr<Observer> obs) = 0;
-    virtual void rmvObserver(std::shared_ptr<Observer> obs) = 0;
-    virtual void notify(int prg, std::string path) = 0;
-    virtual ~Subject(){}
+    virtual void addObserver(Observer* obs) = 0;
+    virtual void rmvObserver(Observer* obs) = 0;
+    virtual void notify(int prg,const std::string& path) = 0;
+
+    virtual ~Subject() = default;
 
 
 };

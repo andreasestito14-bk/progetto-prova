@@ -12,7 +12,7 @@ class Observer {
 public:
     virtual void update(int prg, std::string path) = 0;
 
-    virtual ~Observer(){}
+    virtual ~Observer() = default;
 };
 
 #endif //PRG_1_OBSERVER_H

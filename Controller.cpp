@@ -1,15 +1,10 @@
-//
-// Created by andre on 13/12/2025.
-//
-
 #include "Controller.h"
 
-Controller::Controller(Model *md): model (md){}
+Controller::Controller(Model* md): model(md) {}
 
-void Controller::openingError(int percentage, std::string path){
-    model->setProgress(percentage, path);
+void Controller::startLoading(const std::vector<std::string>& files) {
+    loader = new Loader(model, files);
+    loader->Run();
 }
 
-void Controller::updatePercentage(int percentage, std::string path){
-    model->setProgress(percentage,path);
-}
+Controller::~Controller() {}

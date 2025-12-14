@@ -11,16 +11,18 @@
 class Model : public Subject {
 
 public:
-    virtual void addObserver(std::shared_ptr<Observer> obs) override;
-    virtual void rmvObserver(std::shared_ptr<Observer> obs) override;
-    virtual void notify(int prg, std::string path) override;
+    virtual void addObserver(Observer* obs) override;
+    virtual void rmvObserver(Observer* obs) override;
+    virtual void notify(int prg, const std::string& path) override;
 
-    int getProgress();
-    void setProgress(int prg, std::string path);
+    int getProgress() const;
+    void setProgress(int prg, const std::string& path);
+
+    virtual ~Model();
 
 private:
     int progress = 0;
-    std::list<std::weak_ptr<Observer>> obsList;
+    std::list<Observer*> obsList;
 
 };
 

@@ -1,30 +1,22 @@
-//
-// Created by andre on 11/12/2025.
-//
-
 #ifndef PRG_1_LOADER_H
 #define PRG_1_LOADER_H
 
 #include <wx/wx.h>
-#include <iostream>
-#include "Controller.h"
+#include <string>
+#include "Model.h"
 
-
-class Loader: public wxThread {
-
+class Loader : public wxThread {
 public:
-    Loader(Controller* controller, std::vector<std::string> files);
+
+    Loader(Model* model, const std::vector<std::string>& files);
 
 protected:
     virtual ExitCode Entry() override;
 
 
 private:
-    Controller* controller;
+    Model* model;
     std::vector<std::string> files;
 };
-
-
-
 
 #endif //PRG_1_LOADER_H

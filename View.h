@@ -12,7 +12,7 @@
 #include "Loader.h"
 #include <wx/wx.h>
 
-class View : public Observer ,public wxFrame , public std::enable_shared_from_this<View>{
+class View : public Observer ,public wxFrame{
 
 public:
 
@@ -20,15 +20,12 @@ public:
     const wxString& title = "Schermata di caricamento file", const wxPoint& pos =wxDefaultPosition,
     const wxSize& size = wxSize( 500,300 ), long style =wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-    void init();
-    void unregister();
-
     void ChooseFiles(wxCommandEvent&);
 
 
     virtual void update(int prg, std::string path) override;
 
-    virtual ~View();
+    virtual ~View() override;
 
 private:
     Model* model;
@@ -38,7 +35,6 @@ private:
     wxStaticText* percentage;
     wxGauge* gauge;
     wxButton* chooseButton;
-    Loader* loader = nullptr;
 };
 
 

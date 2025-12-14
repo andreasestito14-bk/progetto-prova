@@ -7,6 +7,7 @@ View::View(Model* md, Controller* ctr, wxWindow *parent, wxWindowID id,
 const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxFrame(parent, id, title, pos, size, style) {
 
     model = md;
+    model->addObserver(this);
     controller = ctr;
 
     //creazione del panel
@@ -34,8 +35,7 @@ const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxF
 
 
     //collego l'evento al controllo
-    chooseButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::ChooseFiles), NULL, this);
-
+    chooseButton->Bind(wxEVT_BUTTON,&View::ChooseFiles, this);
 }
 
 //azioni degli eventi
@@ -51,22 +51,10 @@ void View::ChooseFiles(wxCommandEvent& evt ) {
             files.push_back(fls.ToStdString());
         }
 
-        loader = new Loader(controller, files);
-
-        loader->Run();
+        controller->startLoading(files);
     }
 }
 
-
-
-
-void View::init() {
-    model->addObserver(shared_from_this());
-}
-
-void View::unregister() {
-    model->rmvObserver(shared_from_this());
-}
 
 void View::update(int prg, std::string path) {
     if(prg == -1){
@@ -79,13 +67,10 @@ void View::update(int prg, std::string path) {
         gauge->SetValue(prg);
     }else{
         percentage->SetLabel("Caricamento completato!");
-        gauge->SetValue(prg);
+        gauge->SetValue(100);
     }
 }
 
 View::~View(){
-        chooseButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(View::ChooseFiles), NULL, this);
-
-        loader->Delete();
-        loader= nullptr;
+    model->rmvObserver(this);
 }

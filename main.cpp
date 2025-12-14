@@ -3,22 +3,26 @@
 #include "View.h"
 #include <memory>
 
-class MyApp : public wxApp{
+class MyApp : public wxApp {
 public:
 
-    std::shared_ptr<View> view;
-    std::shared_ptr<Model> model;
-    std::shared_ptr<Controller> controller;
+    Model* model= nullptr;
+    Controller* controller = nullptr;
 
-    virtual bool OnInit() override{
+    virtual bool OnInit() override {
+        model = new Model();
+        controller = new Controller(model);
 
-            model = std::make_shared<Model>();
-            controller = std::make_shared<Controller>(model.get());
-            view = std::make_shared<View>(model.get(), controller.get());
-            view->init();
-            view->Show(true);
+        View* view = new View(model, controller);
+        view->Show(true);
 
-            return true;
+        return true;
+    }
+
+    virtual int OnExit() override {
+            delete controller;
+            delete model;
+            return 0;
     }
 };
 
