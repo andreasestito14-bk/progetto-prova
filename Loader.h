@@ -10,7 +10,6 @@ public:
 
     Loader(Model* model, const std::vector<std::string>& files);
 
-protected:
     virtual ExitCode Entry() override;
 
 

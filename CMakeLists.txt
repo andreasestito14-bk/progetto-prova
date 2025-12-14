@@ -9,19 +9,24 @@ set(wxWidgets_LIB_DIR "${wxWidgets_ROOT_DIR}/lib/gcc_lib")
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 include(${wxWidgets_USE_FILE})
 
+add_subdirectory(test)
+set(SOURCE_FILES
+        Model.cpp
+        Model.h
+        Controller.cpp
+        Controller.h
+        Loader.cpp
+        Loader.h
+)
+add_library(core ${SOURCE_FILES})
 
 add_executable(Prg_1 main.cpp
         Subject.h
         Observer.h
-        Model.h
         View.h
-        Controller.h
         View.cpp
         "${wxWidgets_ROOT_DIR}/include/wx/msw/wx.rc"
-        Loader.h
-        Loader.cpp
-        Model.cpp
-        Controller.cpp
 )
 
-target_link_libraries(Prg_1 ${wxWidgets_LIBRARIES})
+
+target_link_libraries(Prg_1 core ${wxWidgets_LIBRARIES} )

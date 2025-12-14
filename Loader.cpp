@@ -1,8 +1,7 @@
 #include "Loader.h"
 #include <fstream>
 
-Loader::Loader(Model* model, const std::vector<std::string>& files)
-        : wxThread(wxTHREAD_DETACHED), model(model), files(files) {}
+Loader::Loader(Model* model, const std::vector<std::string>& files): wxThread(wxTHREAD_DETACHED), model(model), files(files) {}
 
 wxThread::ExitCode Loader::Entry() {
     for(const std::string& path : files) {
